@@ -1,0 +1,118 @@
+.outline {
+  border: 2px groove #9e9b9b;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.breakText {
+  word-wrap: break-word;
+}
+
+* {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: white;
+}
+
+body {
+  position: relative;
+  padding-bottom: 50px;
+  min-height: 100vh;
+}
+
+#mainPageContent h1 {
+  color: #9e9b9b;
+}
+
+#mainPageContent p {
+  color: #ffd2d9;
+}
+
+.navMenuIcon {
+  font-size: 30px;
+}
+
+.btn-link-dkPink {
+  color: #cfa6ab;
+  text-decoration: none;
+}
+
+.collectionItemListing h3 {
+  color: #cfa6ab;
+}
+
+.collectionItemListing .editingBtnDiv a {
+  color: white;
+}
+
+.collectionItemListing .editingBtnDiv button {
+  margin-bottom: 3px;
+}
+
+.collectionItemListing ul {
+  list-style-type: none;
+}
+
+.collectionItemListing ul li button {
+  color: #9e9b9b;
+  text-decoration: none;
+}
+
+.collectionItemListing ul li button:hover {
+  text-decoration: none;
+  color: #cfa6ab;
+}
+
+.collectionItemListing ul li button:focus, .collectionItemListing ul li button:active {
+  outline: none !important;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  text-decoration: none;
+}
+
+.collectionListContent {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  margin-left: 5%;
+  border-top: 1px #a5a0a0 solid;
+}
+
+.footer button, .footer a, .footer span, .footer button:hover, .footer a:hover, .footer button:active, .footer a:active, .footer button:focus, .footer a:focus {
+  color: #a5a0a0;
+  text-decoration: none;
+  outline: none;
+}
+
+.footer .activeLink {
+  color: #cfa6ab;
+}
+
+.shareCollectionInfo h1 {
+  color: #cfa6ab;
+  font-weight: bold;
+}
+
+.shareCollectionInfo h6 {
+  color: #9e9b9b;
+}
+
+.emailForm {
+  width: 50%;
+  margin-left: 24%;
+  padding: 2%;
+}
+
+.accountInformation {
+  width: 80%;
+  margin-left: 10%;
+}
+
+#contactUsForm {
+  color: #9e9b9b;
+}
+/*# sourceMappingURL=stylesheet.css.map */

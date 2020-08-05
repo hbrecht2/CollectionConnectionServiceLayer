@@ -1,0 +1,135 @@
+$gray: rgb(158, 155, 155);
+$lightGray: rgb(165, 160, 160);
+$lightPink: rgb(255, 210, 217);
+$darkPink: rgb(207, 166, 171);
+
+//General Styling Classes
+.outline{
+    border: 2px groove $gray;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.breakText{
+    word-wrap: break-word;
+  }
+
+
+//All document styling
+*{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: white;
+}
+
+body{
+    position: relative;
+    padding-bottom: 50px;
+    min-height: 100vh;
+}
+
+//Home page styling 
+#mainPageContent{
+    h1{
+        color: $gray;
+    }
+    p{
+        color: $lightPink;
+    }
+}
+
+//Nav Menu Styling  
+.navMenuIcon{
+    font-size: 30px;
+}
+
+.btn-link-dkPink{
+    color: $darkPink;
+    text-decoration: none;
+}
+
+
+
+//User Home Page Styling 
+.collectionItemListing{
+    h3{
+        color: $darkPink;
+    }
+    .editingBtnDiv{
+        a{
+            color: white;
+        }
+        button{
+            margin-bottom: 3px;
+        }
+    }
+    ul{
+        list-style-type: none;
+        li{
+            button{
+                color: $gray;
+                text-decoration: none;
+            }
+            button:hover{
+                text-decoration: none;
+                color: $darkPink;
+            }
+            button:focus, button:active{
+                outline: none !important;
+                box-shadow: none;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+
+.collectionListContent{
+    width: 80%;
+    margin-left: 10%;
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    margin-left: 5%;
+    border-top: 1px $lightGray solid;
+    button, a, span,  button:hover, a:hover, button:active, a:active, button:focus, a:focus{
+        color: $lightGray; 
+        text-decoration: none;
+        outline: none;
+    }
+    .activeLink{
+        color: $darkPink;
+    }
+}
+
+
+//Share Collection Page Styling 
+.shareCollectionInfo{
+    h1{
+        color: $darkPink; 
+        font-weight: bold;
+    }
+    h6{
+        color: $gray;
+    }
+}
+
+.emailForm{
+    width: 50%;
+    margin-left: 24%;
+    padding: 2%
+}
+
+//Account Information Styling 
+.accountInformation{
+    width: 80%;
+    margin-left: 10%;
+}
+
+
+//Contact Form Styling
+#contactUsForm{
+    color: $gray;
+}

@@ -3,7 +3,7 @@ session_start();
     if(!isset($_SESSION['userlogin'])){
         header("Location: index.php");
     }
-
+    
     if(isset($_GET['logout'])){
         session_destroy();
         unset($_SESSION);
@@ -29,15 +29,17 @@ session_start();
     <!--Icons-->
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="scripts2.js"></script>
+
+    
 </head>
 
 <body>
@@ -49,7 +51,7 @@ session_start();
                 <a class="navbar-brand" href="index.php"><img
                         src="../DesignDocuments/collectionConnectionLogo.png"></a>
                 <div class="text-right">
-                    <p class="navbar-text"> Hello, User!</p>
+                    <p class="navbar-text"> Hello, <?php  echo $_SESSION['fName'] ?>!</p>
                     <button class="navbar-toggler btn" type="button" data-toggle="collapse"
                         data-target="#navCollapseMenu">
                         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
@@ -71,7 +73,7 @@ session_start();
         <div class="collectionListContent">
             <div class="row mb-3">
                 <div class="container text-right">
-                    <button id="createCollectionBtn" class="btn btn-sm btn-secondary d-inline-block mb-2 mb-md-0"
+                    <button class="btn btn-sm btn-secondary d-inline-block mb-2 mb-md-0"
                         type="button" data-toggle="modal" data-target="#createCollectionForm">Create New
                         Collection</button>
                     <input class="form-control-sm d-inline-block mb-2 mb-md-0" type="text"
@@ -113,6 +115,7 @@ session_start();
             aria-labelledby="#createCollectionForm" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
+                    <form id="createCollection">
                     <div class="modal-header">
                         <h5 class="modal-title" id="loginFormTitle">Let's Get Started!</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,13 +126,14 @@ session_start();
                         <div class="form-group">
                             <label for="collectionName">Collection Name</label>
                             <input type="text" class="form-control" id="collectionName" name="collectionName"
-                                aria-describedby="collectionName" placeholder="Enter collection name here..">
+                                aria-describedby="collectionName" placeholder="Enter collection name here.." required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-secondary">Create Collection</button>
+                        <button type="submit" class="btn btn-secondary" id="createCollectionBtn">Create Collection</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -314,6 +318,8 @@ session_start();
             <a class="btn btn-link" href="myAccount.html">My Account</button>
         </div>
     </footer>
+
+
 </body>
 
 </html>

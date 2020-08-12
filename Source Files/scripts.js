@@ -1,4 +1,5 @@
 $(function () {
+    //Create account function
     $('#createAccountBtn').click(function (e) {
         var valid = $('#createAccount')[0].checkValidity();
 
@@ -9,7 +10,7 @@ $(function () {
             var lName = $('#lName').val();
             var email = $('#email').val();
             var password = $('#password').val();
-        }
+        
         //Prevents submission of from prematurely
         e.preventDefault();
 
@@ -19,15 +20,20 @@ $(function () {
             url: 'process.php',
             data: { fName: fName, lName: lName, email: email, password: password },
             success: function (data) {
+                $('#createAccountForm').modal('hide');
                 alert("Successfully created your account. Please login to start documenting today!")
+
             },
             error: function (data) {
                 console.log("An error occurred and we could not create your account.")
             }
         });
 
+    }
+
     });
 
+    //Login function 
     $('#loginBtn').click(function (e) {
         var valid = $('#login')[0].checkValidity();
 
@@ -42,13 +48,12 @@ $(function () {
             url: 'jslogin.php',
             data: { email: inputEmail, password: inputPassword },
             success: function (data) {
-                alert(data);
                 if ($.trim(data) === "1") {
-                    setTimeout('window.location.href="userHomePage.php"', 2000)
+                    window.location.href= "userHomePage.php";
                 }
             },
             error: function (data) {
-                alert("there were errors while logging in");
+                alert("There were errors while logging in");
             }
         })
 

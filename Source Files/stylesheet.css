@@ -115,4 +115,16 @@ body {
 #contactUsForm {
   color: #9e9b9b;
 }
+
+.message {
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 100px;
+  font-size: 25px;
+  text-align: center;
+}
+
+.link-text {
+  font-size: 25px;
+}
 /*# sourceMappingURL=stylesheet.css.map */

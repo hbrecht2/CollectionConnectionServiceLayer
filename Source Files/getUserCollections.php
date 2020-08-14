@@ -2,22 +2,29 @@
 //require database connection file
 require_once('config.php');
 session_start();
-
-$userID = '46';
-
 //SQL statement that returns all of the user's collections and the data they include 
 
-$sql = "SELECT collectionID 
-        FROM userCollections
-        WHERE userID = ? ";
+$userID = $_SESSION['id'];
+
+$sql = "SELECT c.collectionName
+        FROM collections AS c 
+        INNER JOIN usercollections AS uc
+        ON c.collectionID = uc.collectionID
+        INNER JOIN users AS u 
+        ON uc.userID = u.ID
+        WHERE u.ID = ? ";
 
 $statement = $db->prepare($sql);
 $result = $statement->execute([$userID]);
 
-if ($result->num_rows > 0){
-
+if ($statement->rowCount() > 0){
+    $userCollections = $statement->fetchAll();
+    $json = json_encode($userCollections);
+    echo $json;
 }else{
-    echo "No collections found for you. Please create a collection to get started.";
+    $userCollections = [];
+    $json = json_encode($userCollections);
+    echo $json;
 }
 
 

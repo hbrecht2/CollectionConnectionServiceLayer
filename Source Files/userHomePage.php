@@ -72,42 +72,23 @@ session_start();
         <!--Collection Page Main Content-->
         <div class="collectionListContent">
             <div class="row mb-3">
-                <div class="container text-right">
+                <div id="collectionControls" class="container text-right">
                     <button class="btn btn-sm btn-secondary d-inline-block mb-2 mb-md-0"
                         type="button" data-toggle="modal" data-target="#createCollectionForm">Create New
+                        Collection</button>
+                    <button class="btn btn-sm btn-secondary d-inline-block mb-2 mb-md-0"
+                        type="button" data-toggle="modal" data-target="#deleteCollectionForm">Delete
                         Collection</button>
                     <input class="form-control-sm d-inline-block mb-2 mb-md-0" type="text"
                         placeholder="Search My Collections" aria-label="Search">
                 </div>
             </div>
 
-            <div class="container collectionItemListing">
-                <div class="float-none row outline pt-3">
-                    <div class="col-12 col-md-8">
-                        <h3>Postcards</h3>
-                        <div class="row">
-                            <div class="col-12">
-                                <ul>
-                                    <li>
-                                        <button class="btn btn-link" type="button" data-toggle="modal"
-                                            data-target="#itemListing">Item</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="editingBtnDiv text-right">
-                            <button id="newItem" class="btn btn-sm btn-secondary" type="button" data-toggle="modal"
-                                data-target="#addItemForm">Add New Item</button>
-                            <button id="editItem" class="btn btn-sm btn-secondary" type="button" data-toggle="modal"
-                                data-target="#editItemForm">Edit</button>
-                            <button id="shareCollection" class="btn btn-sm btn-secondary" type="button"><a
-                                    href="shareCollection.html">Share Collection</a></button>
-                        </div>
-                    </div>
-                </div>
+            <div id="userCollectionsDiv">
+    
             </div>
+
+            
         </div>
 
         <!--Create Collection Modal-->
@@ -138,6 +119,42 @@ session_start();
             </div>
         </div>
 
+        <!--Delete Collection Modal-->
+        <div class="modal fade" id="deleteCollectionForm" tabindex="-1" role="dialog"
+            aria-labelledby="#deleteCollectionForm" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form id="deleteCollection">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginFormTitle">Delete A Collection</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-5">
+                        <div class="form-group">
+                            <label for="collectionToDelete">Which collection would you like to remove? </label>
+                            <select name="collectionToDelete" id="collectionToDelete" required>
+                                <option hidden disabled selected value> -- select a collection below -- </option>
+                            </select>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
+                            <label class="form-check-label" for="defaultCheck1">
+                                Deleting a collection is permanent and cannot be undone. Check this box to continue with removing the collection.  
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-secondary" id="deleteCollectionBtn">Delete Collection</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!--Add Item to Collection Modal-->
         <div class="modal fade" id="addItemForm" tabindex="-1" role="dialog" aria-labelledby="#addItemForm"
             aria-hidden="true" data-backdrop="static">
@@ -149,6 +166,7 @@ session_start();
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <form id="addItem">
                     <div class="modal-body mx-5">
                         <div class="form-group">
                             <label for="itemName">Item Name</label>
@@ -157,8 +175,8 @@ session_start();
                         </div>
                         <div class="form-group">
                             <form action="/action_page.php">
-                                <label for="img">Item Image:</label>
-                                <input type="file" id="img" name="img" accept="image/*">
+                                <label for="ItemImg">Item Image:</label>
+                                <input type="file" id="ItemImg" name="ItemImg" accept="image/*">
                             </form>
                         </div>
                         <div class="form-group">
@@ -175,8 +193,9 @@ session_start();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-secondary">Add Item</button>
+                        <button id="addItemBtn" type="submit" class="btn btn-secondary">Add Item</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -222,7 +241,7 @@ session_start();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-secondary">Add Item</button>
+                        <button type="submit" class="btn btn-secondary">Edit Item</button>
                     </div>
                 </div>
             </div>

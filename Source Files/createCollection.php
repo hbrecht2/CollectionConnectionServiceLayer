@@ -11,16 +11,18 @@ if(isset($_POST)){
     $collectionName = $_POST['collectionName'];
     $userID = $_SESSION['id'];
 
-    //SQL statement to insert user data into users table
-    $sql = "INSERT INTO collections (collectionName)
-            VALUES (?)";
- 
+    //SQL statement to check if name already exists in the database 
+    $sql = "SELECT collectionID
+            FROM collections 
+            WHERE collectionName = ?";
     $statement = $db->prepare($sql);
     $result = $statement->execute([$collectionName]);
-    $collectionID = $db->lastInsertId();
 
-    //Show success or errors of inserting into database
-    if ($result){
+    if($statement->rowCount()>0){
+        //Get collection ID from SQL query 
+        $collectionID = $statement->fetchColumn();
+        //Use collectionID and userID to insert into usercollections table 
+
         $sql = "INSERT INTO userCollections (userID, collectionID)
             VALUES (?, ?)";
  
@@ -28,10 +30,23 @@ if(isset($_POST)){
         $result = $statement->execute([$userID, $collectionID]);
         
     }else{
-        echo 'There was an error while saving data.';
+        //Insert collection name into collections 
+        $sql = "INSERT INTO collections (collectionName)
+            VALUES (?)";
+ 
+        $statement = $db->prepare($sql);
+        $result = $statement->execute([$collectionName]);
+        $collectionID = $db->lastInsertId();
+        
+        if($result){
+            $sql = "INSERT INTO userCollections (userID, collectionID)
+            VALUES (?, ?)";
+ 
+            $statement = $db->prepare($sql);
+            $result = $statement->execute([$userID, $collectionID]);
+        };
     };
-}else{
-    echo 'No data';
-}
+};
+    
 
 ?>

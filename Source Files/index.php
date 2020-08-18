@@ -59,14 +59,15 @@ require_once('config.php');
                         </button>
                     </div>
                     <div class="modal-body mx-5">
-                        <form action="index.php" method="post">
+                        <form>
+                            <div class="errorMessage wrongInputAlert"></div>
                             <div class="form-group">
                                 <label for="inputEmail">Email</label>
                                 <input type="text" class="form-control" id="inputEmail" name="inputEmail" aria-describedby="inputEmail" placeholder="Enter email" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword">Password</label>
-                                <input type="password" class="form-control" id="inputPassword" name="inputPassword" aria-describedby="inputPassword" placeholder="Enter password" required autocomplete="off">
+                                <input type="password" class="form-control" id="inputPassword" name="inputPassword" aria-describedby="inputPassword" placeholder="Enter password" autocomplete="off" required>
                             </div>
                         </form>
                         <small>     
@@ -78,7 +79,7 @@ require_once('config.php');
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" id="loginBtn" class="btn btn-primary" data-dismiss="modal">Login</button>
+                        <button type="button" id="loginBtn" class="btn btn-primary" >Login</button>
                     </div>
                 </form>
                 </div>

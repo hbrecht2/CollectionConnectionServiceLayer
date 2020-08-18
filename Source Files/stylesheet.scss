@@ -1,7 +1,7 @@
-$gray: rgb(158, 155, 155);
+$gray: rgb(102, 99, 99);
 $lightGray: rgb(165, 160, 160);
-$lightPink: rgb(255, 210, 217);
-$darkPink: rgb(207, 166, 171);
+$lightPink: rgb(233, 187, 194);
+$darkPink: rgb(194, 146, 152);
 
 //General Styling Classes
 .outline{
@@ -26,6 +26,7 @@ body{
     padding-bottom: 50px;
     min-height: 100vh;
 }
+
 
 //Home page styling 
 #mainPageContent{
@@ -64,10 +65,13 @@ body{
     }
     ul{
         list-style-type: none;
+        font-size: 20px;
+        border-left: $lightPink 2px solid;
+        padding-left: 10px;
         li{
             button{
                 color: $gray;
-                text-decoration: none;
+                font-size: 20px;
             }
             button:hover{
                 text-decoration: none;
@@ -82,10 +86,21 @@ body{
     }
 }
 
+.itemListingImage{
+    width: 250px;
+    height: 250px;
+}
+
 
 .collectionListContent{
     width: 80%;
     margin-left: 10%;
+}
+
+//Image Size for Edit Item Form
+#previousPhoto{
+    width: 75px;
+    height: 75px;
 }
 
 .footer{
@@ -104,6 +119,9 @@ body{
     }
 }
 
+.confirmDeleteText{
+    font-size: 20px;
+}
 
 //Share Collection Page Styling 
 .shareCollectionInfo{
@@ -112,6 +130,7 @@ body{
         font-weight: bold;
     }
     h6{
+        font-size: 20px;
         color: $gray;
     }
 }
@@ -145,4 +164,12 @@ body{
 
 .link-text{
     font-size: 25px;
+}
+
+
+
+//Alert messages 
+.wrongInputAlert{
+    font-size: 12px;
+    color: red;
 }

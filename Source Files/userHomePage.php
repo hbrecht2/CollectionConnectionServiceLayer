@@ -51,7 +51,7 @@ session_start();
                 <a class="navbar-brand" href="index.php"><img
                         src="../DesignDocuments/collectionConnectionLogo.png"></a>
                 <div class="text-right">
-                    <p class="navbar-text"> Hello, <?php  echo $_SESSION['fName'] ?>!</p>
+                    <p class="navbar-text d-none d-sm-inline-block"> Hello, <?php  echo $_SESSION['fName'] ?>!</p>
                     <button class="navbar-toggler btn" type="button" data-toggle="collapse"
                         data-target="#navCollapseMenu">
                         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
@@ -60,7 +60,7 @@ session_start();
                     <div class="collapse navbar-collapse" id="navCollapseMenu">
                         <div class="btn-group" role="group" aria-label="Navigation Options">
                             <a class="btn btn-secondary active" href="userHomePage.php">My Collections</a>
-                            <a class="btn btn-secondary" href="shareCollection.html">Share My Collection</a>
+                            <a class="btn btn-secondary" href="shareCollection.php">Share My Collection</a>
                             <a class="btn btn-secondary" href="userHomePage.php?logout=true">Logout</a>
                         </div>
                     </div>
@@ -98,7 +98,7 @@ session_start();
                 <div class="modal-content">
                     <form id="createCollection">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="loginFormTitle">Let's Get Started!</h5>
+                        <h5 class="modal-title">Let's Get Started!</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -126,7 +126,7 @@ session_start();
                 <div class="modal-content">
                     <form id="deleteCollection">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="loginFormTitle">Delete A Collection</h5>
+                        <h5 class="modal-title">Delete A Collection</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -140,8 +140,8 @@ session_start();
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
-                            <label class="form-check-label" for="defaultCheck1">
+                            <input class="form-check-input" type="checkbox" value="" id="collectionDeleteCheck" required>
+                            <label class="form-check-label" for="collectionDeleteCheck">
                                 Deleting a collection is permanent and cannot be undone. Check this box to continue with removing the collection.  
                             </label>
                         </div>
@@ -166,34 +166,32 @@ session_start();
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="addItem">
+                    <form id="addItem" action="addItem.php" method="post" enctype="multipart/form-data">
                     <div class="modal-body mx-5">
                         <div class="form-group">
                             <label for="itemName">Item Name</label>
                             <input type="text" class="form-control" id="itemName" name="itemName"
-                                aria-describedby="itemName" placeholder="Enter item name here..">
+                                aria-describedby="itemName" placeholder="Enter item name here.." required>
                         </div>
                         <div class="form-group">
-                            <form action="/action_page.php">
-                                <label for="ItemImg">Item Image:</label>
-                                <input type="file" id="ItemImg" name="ItemImg" accept="image/*">
-                            </form>
+                            <label for="itemImg">Item Image:</label>
+                            <input type="file" id="itemImg" name="itemImg" accept="image/*" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group itemYearDiv">
                             <label for="itemYear">Item Year</label>
                             <input type="text" class="form-control" id="itemYear" name="itemYear"
-                                aria-describedby="itemYear" placeholder="Enter item year here..">
+                                aria-describedby="itemYear" placeholder="Enter item year here.." required>
                         </div>
                         <div class="form-group">
                             <label for="itemDescription">Item Description</label>
                             <textarea id="itemDescription" class="form-control" name="itemDescription"
                                 aria-describedby="itemDescription"
-                                placeholder="Enter item description here.."></textarea>
+                                placeholder="Enter item description here.." required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                        <button id="addItemBtn" type="submit" class="btn btn-secondary">Add Item</button>
+                        <button id="addItemBtn" type="button" class="btn btn-secondary">Add Item</button>
                     </div>
                     </form>
                 </div>
@@ -201,56 +199,51 @@ session_start();
         </div>
 
         <!--Edit Item Modal-->
-        <div class="modal" id="editItemForm">
+        <div class="modal modal-small" id="editItemForm">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editItemFormTitle">Edit Item</h5>
+                        <h5 class="modal-title" id="editItemFormTitle" data-item=""></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body mx-5">
-                        <div class="form-group">
-                            <label for="itemToEdit">Choose an item to edit:</label>
-                            <select name="itemToEdit" id="itemToEdit">
-                                <option value="item">Item</option>
-                            </select>
+                    <form id="editItem" action="editItem.php" method="post" enctype="multipart/form-data">
+                        <div class="modal-body mx-5">
+                            <div class="form-group">
+                                <label for="updatedItemName">Item Name</label>
+                                <input type="text" class="form-control" id="updatedItemName" name="updatedItemName"
+                                    aria-describedby="updatedItemName" value="">
+                            </div>
+                            <div class="form-group">
+                                    <label for="updatedImgPath">Item Image:</label>
+                                    <br>
+                                    <img id="previousPhoto" src="">
+                                    <input type="file" id="updatedImgPath" name="updatedImgPath" accept="image/*" value="">
+                            </div>
+                            <div class="form-group itemYearDiv">
+                                <label for="updatedItemYear">Item Year</label>
+                                <input type="text" class="form-control" id="updatedItemYear" name="updatedItemYear"
+                                    aria-describedby="updatedItemYear" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="updatedItemDescription">Item Description</label>
+                                <textarea id="updatedItemDescription" class="form-control" name="updatedItemDescription"
+                                    aria-describedby="updatedItemDescription" value=""></textarea>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="itemName">Item Name</label>
-                            <input type="text" class="form-control" id="itemName" name="itemName"
-                                aria-describedby="itemName" placeholder="Previous item content">
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+                            <button id="submitEditsBtn" type="button" class="btn btn-secondary" data-collection="" data-img="">Edit Item</button>
                         </div>
-                        <div class="form-group">
-                            <form action="/action_page.php">
-                                <label for="img">Item Image:</label>
-                                <input type="file" id="img" name="img" accept="image/*">
-                            </form>
-                        </div>
-                        <div class="form-group">
-                            <label for="itemYear">Item Year</label>
-                            <input type="text" class="form-control" id="itemYear" name="itemYear"
-                                aria-describedby="itemYear" placeholder="Previous item content">
-                        </div>
-                        <div class="form-group">
-                            <label for="itemDescription">Item Year</label>
-                            <textarea id="itemDescription" class="form-control" name="itemDescription"
-                                aria-describedby="itemDescription" placeholder="Previous item content"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-secondary">Edit Item</button>
-                    </div>
+                    </form>
                 </div>
             </div>
 
         </div>
 
 
-
-
+        
         <!--Item Listing Modal-->
         <div class="modal" id="itemListing">
             <div class="modal-dialog modal-dialog-centered">
@@ -258,36 +251,54 @@ session_start();
 
                     <!-- header with Item Name-->
                     <div class="modal-header text-center">
-                        <h4 class="modal-title w-100">Item Name</h4>
+                        <h4 id= "modalItemName" class="modal-title w-100"></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Body with Item Image, Year, and Description -->
                     <div class="modal-body text-center">
-                        <img src="../DesignDocuments/collectionConnectionLogo.png">
+                        <img id= "modalItemImg" class="itemListingImage" src="">
                         <div class="row">
                             <div class="col-4 text-right">
                                 Year:
                             </div>
-                            <div class="col-8 text-left">
-                                2002
+                            <div id= "modalItemYear" class="col-8 text-left">
+
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-4 text-right">
                                 Description:
                             </div>
-                            <div class="col-8 text-left breakText">
-                                ahsdjfhaskjldfjasdflkasjdfl;ajsdlk;fjasdl;fj;lasdjflasdjflkasdjflkasjdfl;ajsdklfjaslkdfjasjflkasdjfklasjdflkasdjfklasjdlfkjasdfjasdfjaklsdfj
+                            <div id= "modalItemDescription" class="col-8 text-left breakText">
+
                             </div>
                         </div>
                     </div>
 
                     <!-- Footer with Close Button -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="deleteItemBtn" type="button" class="btn btn-link mr-auto" data-collection="" data-name="">Delete Item</button>
+                        <button id="editItemBtn" class="btn btn-sm btn-secondary" type="button" data-toggle="modal"
+                                    data-target="#editItemForm" data-dismiss="modal" data-collection="" data-name="" data-img="" data-year="" data-description="" >Edit Item</button>
                     </div>
 
+                </div>
+            </div>
+        </div>
+
+        <!--Confirm Item Delete Modal-->
+        <div id="confirmItemDelete" class="modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class= "modal-content">
+
+                    <div id="confirmDeleteMessage" class="modal-body confirmDeleteText">
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button id="deleteItemConfirmBtn" type="button" data-dismiss="modal" class="btn btn-primary" >Delete</button>
+                        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -328,13 +339,13 @@ session_start();
             </div>
         </div>
     </div>
-
+    <p id="linkMessage" class="text-center mb-0" >To get more information, edit, or delete an item, click on the item in the list.</p>
     <footer class="text-center footer">
         <div class="container-fluid text-center">
             <button class="btn btn-link" type="button" data-toggle="modal" data-target="#contactUsForm">Contact
                 Us</button>
             <span>|</span>
-            <a class="btn btn-link" href="myAccount.html">My Account</button>
+            <a class="btn btn-link" href="myAccount.php">My Account</button>
         </div>
     </footer>
 

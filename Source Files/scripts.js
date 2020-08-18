@@ -10,7 +10,7 @@ $(function () {
             var lName = $('#lName').val();
             var email = $('#email').val();
             var password = $('#password').val();
-        
+               
         //Prevents submission of from prematurely
         e.preventDefault();
 
@@ -28,8 +28,7 @@ $(function () {
                 console.log("An error occurred and we could not create your account.")
             }
         });
-
-    }
+        }
 
     });
 
@@ -40,7 +39,7 @@ $(function () {
         if (valid) {
             var inputEmail = $('#inputEmail').val();
             var inputPassword = $('#inputPassword').val();
-        }
+        
         e.preventDefault();
 
         $.ajax({
@@ -50,12 +49,17 @@ $(function () {
             success: function (data) {
                 if ($.trim(data) === "1") {
                     window.location.href= "userHomePage.php";
+                }else{
+                    $(".errorMessage").text(data)
                 }
             },
             error: function (data) {
                 alert("There were errors while logging in");
             }
         })
+    }else{
+        $(".errorMessage").text("Please fill out both fields below to continue.")
+    }
 
 
     });

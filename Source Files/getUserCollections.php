@@ -6,7 +6,7 @@ session_start();
 
 $userID = $_SESSION['id'];
 
-$sql = "SELECT c.collectionName
+$sql = "SELECT c.collectionName, c.collectionID
         FROM collections AS c 
         INNER JOIN usercollections AS uc
         ON c.collectionID = uc.collectionID

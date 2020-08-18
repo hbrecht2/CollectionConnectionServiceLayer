@@ -1,5 +1,5 @@
 .outline {
-  border: 2px groove #9e9b9b;
+  border: 2px groove #666363;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -20,11 +20,11 @@ body {
 }
 
 #mainPageContent h1 {
-  color: #9e9b9b;
+  color: #666363;
 }
 
 #mainPageContent p {
-  color: #ffd2d9;
+  color: #e9bbc2;
 }
 
 .navMenuIcon {
@@ -32,12 +32,12 @@ body {
 }
 
 .btn-link-dkPink {
-  color: #cfa6ab;
+  color: #c29298;
   text-decoration: none;
 }
 
 .collectionItemListing h3 {
-  color: #cfa6ab;
+  color: #c29298;
 }
 
 .collectionItemListing .editingBtnDiv a {
@@ -50,16 +50,19 @@ body {
 
 .collectionItemListing ul {
   list-style-type: none;
+  font-size: 20px;
+  border-left: #e9bbc2 2px solid;
+  padding-left: 10px;
 }
 
 .collectionItemListing ul li button {
-  color: #9e9b9b;
-  text-decoration: none;
+  color: #666363;
+  font-size: 20px;
 }
 
 .collectionItemListing ul li button:hover {
   text-decoration: none;
-  color: #cfa6ab;
+  color: #c29298;
 }
 
 .collectionItemListing ul li button:focus, .collectionItemListing ul li button:active {
@@ -69,9 +72,19 @@ body {
   text-decoration: none;
 }
 
+.itemListingImage {
+  width: 250px;
+  height: 250px;
+}
+
 .collectionListContent {
   width: 80%;
   margin-left: 10%;
+}
+
+#previousPhoto {
+  width: 75px;
+  height: 75px;
 }
 
 .footer {
@@ -89,16 +102,21 @@ body {
 }
 
 .footer .activeLink {
-  color: #cfa6ab;
+  color: #c29298;
+}
+
+.confirmDeleteText {
+  font-size: 20px;
 }
 
 .shareCollectionInfo h1 {
-  color: #cfa6ab;
+  color: #c29298;
   font-weight: bold;
 }
 
 .shareCollectionInfo h6 {
-  color: #9e9b9b;
+  font-size: 20px;
+  color: #666363;
 }
 
 .emailForm {
@@ -113,7 +131,7 @@ body {
 }
 
 #contactUsForm {
-  color: #9e9b9b;
+  color: #666363;
 }
 
 .message {
@@ -126,5 +144,10 @@ body {
 
 .link-text {
   font-size: 25px;
+}
+
+.wrongInputAlert {
+  font-size: 12px;
+  color: red;
 }
 /*# sourceMappingURL=stylesheet.css.map */

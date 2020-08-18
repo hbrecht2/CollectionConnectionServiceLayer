@@ -3,26 +3,32 @@
 //require database connection file
 require_once('config.php');
 session_start();
-//SQL statement that returns all of the user's collections and the data they include 
+
 
 $userID = $_SESSION['id'];
 $collectionToDelete = $_POST['collectionToDelete'];
 
-$sql = "SELECT collectionID 
-        FROM collections 
-        WHERE collectionName = ?";
+//SQL statement that returns userCOllectionID 
+$sql = "SELECT uc.ID
+        FROM usercollections as uc 
+        JOIN collections as c
+        ON uc.collectionID = c.collectionID
+        WHERE c.collectionName = ?";
 
 $statement = $db->prepare($sql);
 $result = $statement->execute([$collectionToDelete]);
 
 if($result){
-        $collectionID = $statement->fetchColumn();
-        
+        $userCollectionID = $statement->fetchColumn();
+
         //SQL query to delete row from user collections table
         $sql = "DELETE FROM usercollections
-                WHERE userID = ? AND collectionID = ?";
+                WHERE ID = ?;
+                
+                DELETE FROM items 
+                WHERE userCollectionID = ?";
 
         $statement = $db->prepare($sql);
-        $result = $statement->execute([$userID, $collectionID]);        
+        $result = $statement->execute([$userCollectionID, $userCollectionID]);    
 };
 ?>

@@ -1,3 +1,39 @@
+<?php
+session_start();
+    if(!isset($_SESSION['userlogin'])){
+        header("Location: index.php");
+    }
+    
+    if(isset($_GET['logout'])){
+        session_destroy();
+        unset($_SESSION);
+        header("Location: index.php");
+    }
+
+require('config.php');
+
+$userID=$_SESSION['id'];
+
+$sql = "SELECT * FROM users WHERE ID = ?";
+
+$statement = $db->prepare($sql);
+$result = $statement->execute([$userID]);
+
+if($result){
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+    $firstName = $user['fName'];
+    $lastName = $user['lName'];
+    $email = $user['email'];
+    $dateCreated = $user['dateCreated'];
+}
+
+$date = DateTime::createFromFormat('Y-m-d', $dateCreated);
+$reformattedDate = $date->format('F j, Y');
+
+
+?>
+
+
 <!DOCTYPE>
 <html>
 
@@ -14,15 +50,14 @@
     <!--Icons-->
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="scripts3.js"></script>
 </head>
 
 <body>
@@ -31,10 +66,10 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
 
-                <a class="navbar-brand" href="index.html"><img
+                <a class="navbar-brand" href="index.php"><img
                         src="../DesignDocuments/collectionConnectionLogo.png"></a>
                 <div class="text-right">
-                    <p class="navbar-text"> Hello, User!</p>
+                    <p class="navbar-text d-none d-sm-inline-block"> Hello, <?php echo $firstName; ?>!</p>
                     <button class="navbar-toggler btn" type="button" data-toggle="collapse"
                         data-target="#navCollapseMenu">
                         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
@@ -42,9 +77,9 @@
 
                     <div class="collapse navbar-collapse" id="navCollapseMenu">
                         <div class="btn-group" role="group" aria-label="Navigation Options">
-                            <a class="btn btn-secondary" href="userHomePage.html">My Collections</a>
-                            <a class="btn btn-secondary" href="shareCollection.html">Share My Collection</a>
-                            <button id="logOutBtn" class="btn btn-secondary" type="button">Log Out</button>
+                            <a class="btn btn-secondary" href="userHomePage.php">My Collections</a>
+                            <a class="btn btn-secondary" href="shareCollection.php">Share My Collection</a>
+                            <a class="btn btn-secondary" href="myAccount.php?logout=true">Logout</a>
                         </div>
                     </div>
 
@@ -62,36 +97,38 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-12 col-md-5 text-center">
+                        <div class="col-12 col-md-5 text-md-right ">
                             <h5>Name</h5>
                         </div>
                         <div class="col-12 col-md-7 outline">
-                            <h6>Hannah Taylor</h6>
+                            <h6><?php echo $firstName. ' ' . $lastName; ?></h6>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-12 col-md-5 text-center">
+                        <div class="col-12 col-md-5 text-md-right ">
                             <h5>Email</h5>
                         </div>
                         <div class="col-12 col-md-7 outline">
-                            <h6>hbrecht2@live.maryville.edu</h6>
+                            <h6><?php echo $email; ?></h6>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-12 col-md-5 text-center">
+                        <div class="col-12 col-md-5 text-md-right ">
                             <h5>Date Created</h5>
                         </div>
                         <div class="col-12 col-md-7 outline">
-                            <h6>7/26/2019</h6>
+                            <h6><?php echo $reformattedDate; ?></h6>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 mt-5 text-center">
-                    <button id="logOutBtn" class="btn btn-secondary col-12 col-md-6 offset-md-3 p-2 mb-4"
-                        type="button">Log Out</button>
-                    <button id="editAccount" class="btn btn-secondary col-12 col-md-6 offset-md-3 p-2 mb-4"
+                    <a id="logOutBtn" class="btn btn-secondary col-12 col-md-6 offset-md-3 p-2 mb-4"
+                    href="userHomePage.php?logout=true">Log Out</a>
+                    <button class="btn btn-secondary col-12 col-md-6 offset-md-3 p-2 mb-4"
                         type="button" data-toggle="modal" data-target="#editAccountForm">Edit Account Info</button>
-                    <button id="deleteAccount" class="btn btn-secondary col-12 col-md-6 offset-md-3 p-2 mb-4"
+                    <button class="btn btn-secondary col-12 col-md-6 offset-md-3 p-2 mb-4"
+                        type="button" data-toggle="modal" data-target="#changePasswordForm">Change Password</button>
+                    <button class="btn btn-secondary col-12 col-md-6 offset-md-3 p-2 mb-4"
                         type="button" data-toggle="modal" data-target="#deleteAccountForm">Delete Account</button>
                 </div>
             </div>
@@ -107,22 +144,69 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body mx-5">
-                        <div class="form-group">
-                            <label for="accountName">Name</label>
-                            <input type="text" class="form-control" id="accountName" name="accountName"
-                                aria-describedby="accountName" placeholder="Previous name on account">
+                    <form id="editAccount" action="editAccount.php" method="post">
+                        <div class="modal-body mx-5">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName"
+                                    aria-describedby="firstName" value="<?php echo $firstName; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName"
+                                    aria-describedby="lastName" value="<?php echo $lastName; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="accountEmail">Email</label>
+                                <input type="email" class="form-control" id="accountEmail" name="accountEmail"
+                                    aria-describedby="accountEmail" value="<?php echo $email; ?>">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="accountEmail">Email</label>
-                            <input type="email" class="form-control" id="accountEmail" name="accountEmail"
-                                aria-describedby="accountEmail" placeholder="Previous email on account">
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+                            <button id="editAccountBtn" type="submit" class="btn btn-secondary">Save Changes</button>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Change Password Modal-->
+        <div class="modal" id="changePasswordForm">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editAccountTitle">Change Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-secondary">Save Changes</button>
-                    </div>
+                    <form id="changePassword"  action="changePassword.php" method="post">
+                        <div class="modal-body mx-5">
+                            <div class="incorrectPasswordDiv"></div>
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword" name="currentPassword"
+                                    aria-describedby="currentPassword" autocomplete="off" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                    aria-describedby="newPassword" autocomplete="off" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmNewPassword">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword"
+                                    aria-describedby="confirmNewPassword" autocomplete="off" required>
+                            </div>
+                            <div class="passwordMessageDiv">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+                            <button id="changePasswordBtn" type="submit" class="btn btn-secondary">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -132,29 +216,35 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
+                <form id="deleteAccount" action="deleteAccount.php" method="post">
                     <!-- Header-->
                     <div class="modal-header text-center">
                         <h4 class="modal-title w-100">Delete Account</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
+                    
                     <!-- Message-->
                     <div class="modal-body text-center">
                         <p>Deletion of your account is permanent and cannot be undone. All data will
                             be lost. Check box below to confirm.</p>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="deleteAccountCheck">
+                            <input class="form-check-input" type="checkbox" id="deleteAccountCheck">
                             <label class="form-check-label" for="deleteAccountCheck">
                                 By checking this box, I agree to deleting my account.
                             </label>
+                            <div class="deleteMessageDiv">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Footer with Cancel and Delete Button -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Delete Account</button>
+                        <button id="deleteAccountBtn" type="button" class="btn btn-secondary">Delete Account</button>
                     </div>
+
+                </form>
 
                 </div>
             </div>

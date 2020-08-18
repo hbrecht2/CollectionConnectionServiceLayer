@@ -17,8 +17,6 @@ if ($result){
     if($statement->rowCount() > 0){
         $_SESSION['id'] = $user['ID'];
         $_SESSION['fName'] = $user['fName'];
-        $_SESSION['lName'] = $user['lName'];
-        $_SESSION['email'] = $user['email'];
 
         $_SESSION['userlogin'] = $user;
         echo "1";

@@ -1,3 +1,18 @@
+<?php
+session_start();
+    if(!isset($_SESSION['userlogin'])){
+        header("Location: index.php");
+    }
+    
+    if(isset($_GET['logout'])){
+        session_destroy();
+        unset($_SESSION);
+        header("Location: index.php");
+    }
+
+?>
+
+
 <!DOCTYPE>
 <html>
 
@@ -34,7 +49,7 @@
                 <a class="navbar-brand" href="index.php"><img
                         src="../DesignDocuments/collectionConnectionLogo.png"></a>
                 <div class="text-right">
-                    <p class="navbar-text"> Hello, User!</p>
+                    <p class="navbar-text d-none d-sm-inline-block"> Hello, User!</p>
                     <button class="navbar-toggler btn" type="button" data-toggle="collapse"
                         data-target="#navCollapseMenu">
                         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
@@ -43,8 +58,8 @@
                     <div class="collapse navbar-collapse" id="navCollapseMenu">
                         <div class="btn-group" role="group" aria-label="Navigation Options">
                             <a class="btn btn-secondary" href="userHomePage.php">My Collections</a>
-                            <a class="btn btn-secondary active" href="shareCollection.html">Share My Collection</a>
-                            <button id="logOutBtn" class="btn btn-secondary" type="button">Log Out</button>
+                            <a class="btn btn-secondary active" href="shareCollection.php">Share My Collection</a>
+                            <a class="btn btn-secondary" href="shareCollection.php?logout=true">Logout</a>
                         </div>
                     </div>
 
@@ -130,7 +145,7 @@
             <button class="btn btn-link" type="button" data-toggle="modal" data-target="#contactUsForm">Contact
                 Us</button>
             <span>|</span>
-            <a class="btn btn-link" href="myAccount.html">My Account</button>
+            <a class="btn btn-link" href="myAccount.php">My Account</button>
         </div>
     </footer>
 </body>

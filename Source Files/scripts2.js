@@ -212,7 +212,7 @@ $(function () {
                                 `<p class="wrongInputAlert">Image is too large. You must resize before uploading.</p>`
                             )
                         }else{
-                            alert("An error occurred while uploading item. Please try again and contact website administrators if issue persists.")
+                            alert(data)
                         }
                     }, 
                     error: function(data){
@@ -347,6 +347,34 @@ $(function () {
 
         modal.find('#submitEditsBtn').attr('data-collection', collectionName)  
         modal.find('#submitEditsBtn').attr('data-img', itemImgPath)       
+    })
+
+
+    $('#contactUsBtn').click(function(e){
+        var valid = $('#contactUs')[0].checkValidity();
+        if(valid){
+            var clientEmail = $('#clientEmail').val()
+            var contactMessage = $('#contactMessage').val()
+    
+            e.preventDefault();
+    
+            $.ajax({
+                type: 'POST',
+                url: 'contactUs.php',
+                data: {clientEmail: clientEmail, contactMessage: contactMessage},
+                success: function (data) {
+                    if(data === "1"){
+                    $('#contactUs')[0].reset()
+                    $('.contactFormSent').text("Thank you for reaching out. We will be in touch soon.")
+                    }else{
+                        alert(data)
+                    }
+                },
+                error: function (data) {
+                    alert("An error occurred while sending your message. Please try again.")
+                }
+            });
+        }
     })
 
 });

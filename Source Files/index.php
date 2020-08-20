@@ -29,7 +29,7 @@ require_once('config.php');
         <!--Navigation Header-->
         <nav class="navbar navbar-expand-md navbar-li ght pt-0">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="../DesignDocuments/collectionConnectionLogo.png"></a>
+                <a class="navbar-brand" href="#"><img src="collectionConnectionLogo.png"></a>
                 <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#loginForm">Log In</button>
             </div>
         </nav>

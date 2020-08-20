@@ -1,10 +1,12 @@
 <?php
-
-$db_user = "root";
-$db_pass = "";
-$db_name = "useraccounts";
-
-$db = new PDO('mysql:host=localhost;dbname=' . $db_name . ';charset=utf8', $db_user, $db_pass);
+$url = parse_url(getenv("CLEARDB_DATABASE_URL")); 
+ 
+$server = $url["host"]; 
+$username = $url["user"]; 
+$password = $url["pass"]; 
+$db = substr($url["path"], 1); 
+ 
+$db = new PDO('mysql:host=' . $server . ';dbname=' . $db . ';charset=utf8', $username, $password);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 

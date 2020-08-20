@@ -27,7 +27,7 @@ if($result){
     $dateCreated = $user['dateCreated'];
 }
 
-$date = DateTime::createFromFormat('Y-m-d', $dateCreated);
+$date = DateTime::createFromFormat('Y-m-d H:i:s', $dateCreated);
 $reformattedDate = $date->format('F j, Y');
 
 
@@ -67,7 +67,7 @@ $reformattedDate = $date->format('F j, Y');
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="index.php"><img
-                        src="../DesignDocuments/collectionConnectionLogo.png"></a>
+                        src="collectionConnectionLogo.png"></a>
                 <div class="text-right">
                     <p class="navbar-text d-none d-sm-inline-block"> Hello, <?php echo $firstName; ?>!</p>
                     <button class="navbar-toggler btn" type="button" data-toggle="collapse"
@@ -256,6 +256,7 @@ $reformattedDate = $date->format('F j, Y');
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
+                <form id="contactUs">
                     <!-- Header-->
                     <div class="modal-header text-center">
                         <h4 class="modal-title w-100">Contact Us</h4>
@@ -264,23 +265,25 @@ $reformattedDate = $date->format('F j, Y');
 
                     <!-- Contact Form-->
                     <div class="modal-body text-left">
+                        <p class="contactFormSent successMessage"></p>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="recipientEmail"
-                                aria-describedby="recipientEmail" placeholder="Enter your email here..">
+                            <label for="clientEmail">Email</label>
+                            <input type="email" class="form-control" id="clientEmail"
+                                aria-describedby="clientEmail" placeholder="Enter your email here.." required>
                         </div>
                         <div class="form-group">
                             <label for="contactMessage">Message</label>
                             <textarea id="contactMessage" class="form-control" name="contactMessage"
-                                aria-describedby="contactMessage" placeholder="Enter your message here.."></textarea>
+                                aria-describedby="contactMessage" placeholder="Enter your message here.." required></textarea>
                         </div>
                     </div>
 
                     <!-- Footer with Cancel and Delete Button -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Send</button>
+                        <button id="contactUsBtn" type="submit" class="btn btn-secondary" >Send</button>
                     </div>
+                </form>
 
                 </div>
             </div>

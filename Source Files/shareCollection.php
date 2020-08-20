@@ -38,6 +38,7 @@ session_start();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="scripts3.js"></script>
 </head>
 
 <body>
@@ -47,7 +48,7 @@ session_start();
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="index.php"><img
-                        src="../DesignDocuments/collectionConnectionLogo.png"></a>
+                        src="collectionConnectionLogo.png"></a>
                 <div class="text-right">
                     <p class="navbar-text d-none d-sm-inline-block"> Hello, User!</p>
                     <button class="navbar-toggler btn" type="button" data-toggle="collapse"
@@ -109,6 +110,7 @@ session_start();
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
+                <form id="contactUs">
                     <!-- Header-->
                     <div class="modal-header text-center">
                         <h4 class="modal-title w-100">Contact Us</h4>
@@ -117,23 +119,25 @@ session_start();
 
                     <!-- Contact Form-->
                     <div class="modal-body text-left">
+                        <p class="contactFormSent successMessage"></p>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="recipientEmail"
-                                aria-describedby="recipientEmail" placeholder="Enter your email here..">
+                            <label for="clientEmail">Email</label>
+                            <input type="email" class="form-control" id="clientEmail"
+                                aria-describedby="clientEmail" placeholder="Enter your email here.." required>
                         </div>
                         <div class="form-group">
                             <label for="contactMessage">Message</label>
                             <textarea id="contactMessage" class="form-control" name="contactMessage"
-                                aria-describedby="contactMessage" placeholder="Enter your message here.."></textarea>
+                                aria-describedby="contactMessage" placeholder="Enter your message here.." required></textarea>
                         </div>
                     </div>
 
                     <!-- Footer with Cancel and Delete Button -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Send</button>
+                        <button id="contactUsBtn" type="submit" class="btn btn-secondary" >Send</button>
                     </div>
+                </form>
 
                 </div>
             </div>

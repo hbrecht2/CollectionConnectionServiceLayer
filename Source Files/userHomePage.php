@@ -79,8 +79,7 @@ session_start();
                     <button class="btn btn-sm btn-secondary d-inline-block mb-2 mb-md-0"
                         type="button" data-toggle="modal" data-target="#deleteCollectionForm">Delete
                         Collection</button>
-                    <input class="form-control-sm d-inline-block mb-2 mb-md-0" type="text"
-                        placeholder="Search My Collections" aria-label="Search">
+                    <a class="btn btn-sm btn-secondary d-inline-block mb-2 mb-md-0" href="shareCollection.php">Share My Collection</a>
                 </div>
             </div>
 

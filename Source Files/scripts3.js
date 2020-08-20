@@ -1,7 +1,5 @@
 $(function () {
 
-
-
 $('#editAccountBtn').click(function(e){
     var valid = $('#editAccount')[0].checkValidity();
 
@@ -150,5 +148,37 @@ $('#contactUsBtn').click(function(e){
         });
     }
 })
+
+//Script for share my collection page 
+
+
+$('#shareCollectionBtn').click(function(e){
+    var valid = $('#shareCollection')[0].checkValidity();
+    if(valid){
+        var recipientEmail = $('#recipientEmail').val()
+        var emailMessage = $('#emailMessage').val()
+        var collectionToSend = $('#collectionToSend option:selected').text();
+
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: 'sendCollection.php',
+            data: {recipientEmail: recipientEmail, emailMessage: emailMessage, collectionToSend:collectionToSend},
+            success: function (data) {
+                if(data==="1"){
+                    $('#shareCollection')[0].reset()
+                    $('.alertMessage').html('<p class="successMessage">Successfully sent your message to ' + recipientEmail + '.</p>')
+                }else(
+                    $('.alertMessage').html('<p class="wrongInputAlert">Message to ' + recipientEmail + ' could not be sent. Please try again or contact administrator.</p>')
+                )
+            },
+            error: function (data) {
+                $('.alertMessage').html('<p class="wrongInputAlert">Message to ' + recipientEmail + ' could not be sent. Please try again or contact administrator.</p>')
+            }
+        });
+    }
+})
+
 
 })

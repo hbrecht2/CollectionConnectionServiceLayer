@@ -66,7 +66,7 @@ $(function () {
                 url: 'createCollection.php',
                 data: { collectionName: collectionName },
                 success: function (data) {
-                    $("#createCollectionForm").modal('hide');3
+                    $("#createCollectionForm").modal('hide');
                     window.location.reload();
                 },
                 error: function (data) {
@@ -245,6 +245,10 @@ $(function () {
                 `  );
             $("#collectionControls").hide();
             $('#linkMessage').hide();
+
+            $("#shareCollectionPlaceholder").text(
+                `No collections to share`
+            ); 
         }else{
         collectionNames.forEach(element => {
             $("#userCollectionsDiv").append(
@@ -269,6 +273,10 @@ $(function () {
                 </div>`);
 
             $("#collectionToDelete").append(
+                `<option>` + element + `</option>`
+            ); 
+
+            $("#collectionToSend").append(
                 `<option>` + element + `</option>`
             ); 
         });  

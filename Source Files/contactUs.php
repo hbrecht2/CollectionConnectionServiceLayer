@@ -37,7 +37,6 @@ try {
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = $subject ;
     $mail->Body    = 'Message from ' . $fromEmail . 'Message: ' . $message;
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
     echo "1";

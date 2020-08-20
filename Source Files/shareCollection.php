@@ -29,15 +29,14 @@ session_start();
     <!--Icons-->
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="scripts2.js"></script>
     <script type="text/javascript" src="scripts3.js"></script>
 </head>
 
@@ -50,7 +49,7 @@ session_start();
                 <a class="navbar-brand" href="index.php"><img
                         src="collectionConnectionLogo.png"></a>
                 <div class="text-right">
-                    <p class="navbar-text d-none d-sm-inline-block"> Hello, User!</p>
+                    <p class="navbar-text d-none d-sm-inline-block"> Hello, <?php  echo $_SESSION['fName']; ?>!</p>
                     <button class="navbar-toggler btn" type="button" data-toggle="collapse"
                         data-target="#navCollapseMenu">
                         <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
@@ -80,27 +79,28 @@ session_start();
             </h6>
         </div>
         <div class="container-fluid emailForm">
-            <form>
+            <form id='shareCollection'>
+                <div class="alertMessage form-group">
+                </div>
                 <div class="form-group">
                     <label for="recipientEmail">Email</label>
                     <input type="email" class="form-control" id="recipientEmail" aria-describedby="recipientEmail"
-                        placeholder="Enter enter the recipient's email here..">
+                        placeholder="Enter enter the recipient's email here.." required>
                 </div>
                 <div class="form-group">
                     <label for="emailMessage">Message</label>
                     <textarea id="emailMessage" class="form-control" name="emailMessage" aria-describedby="emailMessage"
-                        placeholder="Type message to send with the collection list here.."></textarea>
+                        placeholder="Type message to send with the collection list here.." required></textarea>
                 </div>
                 <div class="formgroup">
                     <label for="collectionToSend">Collection List</label>
-                    <select class="custom-select">
-                        <option selected>Choose which collection list to be sent</option>
-                        <option value="listName">List Name</option>
+                    <select id="collectionToSend" name="collectionToSend" class="custom-select" required>
+                        <option id="shareCollectionPlaceholder" hidden disabled selected value> -- select a collection below -- </option>
                     </select>
                 </div>
                 <div class="text-center mt-4">
                     <button type="reset" class="btn btn-secondary right-align">Reset</button>
-                    <button type="submit" class="btn btn-secondary right-align">Send</button>
+                    <button id="shareCollectionBtn" type="submit" class="btn btn-secondary right-align">Send</button>
                 </div>
             </form>
         </div>

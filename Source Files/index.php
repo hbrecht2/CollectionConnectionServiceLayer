@@ -113,6 +113,16 @@ require_once('config.php');
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" aria-describedby="password" placeholder="Enter password"  autocomplete="off" required>
+                                <p class="pswdCheckMessage"></p>
+                            </div>
+                            <div id="pswd_info" class="form=group">
+                                <p>Password must meet the following requirements:</p>
+                                <ul>
+                                    <li id="letter" class="invalid">At least one letter </li>
+                                    <li id="capital" class="invalid">At least one capital letter </li>
+                                    <li id="number" class="invalid">At least one number </li>
+                                    <li id="length" class="invalid">Be at least 8 characters </li>
+                                </ul>
                             </div>
                         <small>     
                             Already have an account? 

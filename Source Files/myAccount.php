@@ -189,6 +189,8 @@ $reformattedDate = $date->format('F j, Y');
                                 <input type="password" class="form-control" id="currentPassword" name="currentPassword"
                                     aria-describedby="currentPassword" autocomplete="off" required>
                             </div>
+                            <div class="passwordMessageDiv">
+                            </div>
                             <div class="form-group">
                                 <label for="newPassword">New Password</label>
                                 <input type="password" class="form-control" id="newPassword" name="newPassword"
@@ -199,7 +201,14 @@ $reformattedDate = $date->format('F j, Y');
                                 <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword"
                                     aria-describedby="confirmNewPassword" autocomplete="off" required>
                             </div>
-                            <div class="passwordMessageDiv">
+                            <div id="pswd_info" class="form=group">
+                                <p>Password must meet the following requirements:</p>
+                                <ul>
+                                    <li id="letter" class="invalid">At least one letter </li>
+                                    <li id="capital" class="invalid">At least one capital letter </li>
+                                    <li id="number" class="invalid">At least one number </li>
+                                    <li id="length" class="invalid">Be at least 8 characters </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="modal-footer">

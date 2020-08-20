@@ -10,26 +10,30 @@ $(function () {
             var lName = $('#lName').val();
             var email = $('#email').val();
             var password = $('#password').val();
-               
-        //Prevents submission of from prematurely
-        e.preventDefault();
 
-        //POST Account Info from form to DB
-        $.ajax({
-            type: 'POST',
-            url: 'process.php',
-            data: { fName: fName, lName: lName, email: email, password: password },
-            success: function (data) {
-                $('#createAccountForm').modal('hide');
-                alert("Successfully created your account. Please login to start documenting today!")
+            //Prevents submission of from prematurely
+            e.preventDefault();
 
-            },
-            error: function (data) {
-                console.log("An error occurred and we could not create your account.")
+            if(password.length >= 8 &&  password.match(/[A-z]/) && password.match(/[A-Z]/) && password.match(/\d/)){
+
+                //POST Account Info from form to DB
+                $.ajax({
+                    type: 'POST',
+                    url: 'process.php',
+                    data: { fName: fName, lName: lName, email: email, password: password },
+                    success: function (data) {
+                        $('#createAccountForm').modal('hide');
+                        alert("Successfully created your account. Please login to start documenting today!")
+
+                    },
+                    error: function (data) {
+                        console.log("An error occurred and we could not create your account.")
+                    }
+                });
+            }else{
+                $('.pswdCheckMessage').text("Password does not fit requirements. Please enter a new password.")
             }
-        });
         }
-
     });
 
     //Login function 
@@ -62,6 +66,42 @@ $(function () {
     }
 
 
+    });
+
+    //Password info for users 
+    $('input[type=password]').keyup(function() {
+        var pswd = $(this).val();
+        //Validate length 
+        if ( pswd.length < 8 ) {
+            $('#length').removeClass('valid').addClass('invalid');
+        } else {
+            $('#length').removeClass('invalid').addClass('valid');
+        }
+
+        //Validate letter 
+        if ( pswd.match(/[A-z]/) ) {
+            $('#letter').removeClass('invalid').addClass('valid');
+        } else {
+            $('#letter').removeClass('valid').addClass('invalid');
+        }
+
+        //validate capital letter
+        if ( pswd.match(/[A-Z]/) ) {
+            $('#capital').removeClass('invalid').addClass('valid');
+        } else {
+            $('#capital').removeClass('valid').addClass('invalid');
+        }
+
+        //validate number
+        if ( pswd.match(/\d/) ) {
+            $('#number').removeClass('invalid').addClass('valid');
+        } else {
+            $('#number').removeClass('valid').addClass('invalid');
+        }
+    }).focus(function() {
+        $('#pswd_info').show();
+    }).blur(function() {
+        $('#pswd_info').hide();
     });
 
 });

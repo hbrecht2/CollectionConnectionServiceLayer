@@ -57,6 +57,9 @@ $(function () {
             //Prevents submission of from prematurely
             e.preventDefault();
 
+            //Disables the submit button so user can't accidentally upload many copies 
+            $('#createCollectionBtn').attr("disabled", true);
+
             //POST Account Info from form to DB
             $.ajax({
                 type: 'POST',
@@ -191,6 +194,9 @@ $(function () {
                 formData.append('collectionName', collectionName);
 
                 e.preventDefault();
+
+                //Disables the submit button so user can't accidentally upload many copies 
+                $('#addItemBtn').attr("disabled", true);
 
                 $.ajax({
                     url: 'addItem.php',

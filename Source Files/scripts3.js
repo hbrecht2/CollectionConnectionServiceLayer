@@ -39,6 +39,8 @@ $('#changePasswordBtn').click(function(e){
 
         if(newPassword !== confirmNewPassword){
             $('.passwordMessageDiv').html('<p class="wrongInputAlert">Passwords do not match.</p>')
+        }else if(newPassword.length < 8 &&  !newPassword.match(/[A-z]/) && !newPassword.match(/[A-Z]/) && !newPassword.match(/\d/)){
+            $('.passwordMessageDiv').html('<p class="wrongInputAlert">New password does not meet password criteria.</p>')
         }else{
             $('.wrongInputAlert').hide()
             $.ajax({
@@ -64,6 +66,42 @@ $('#changePasswordBtn').click(function(e){
         }
     }
 })
+
+//Password info for users 
+$('input[type=password]').keyup(function() {
+    var pswd = $(this).val();
+    //Validate length 
+    if ( pswd.length < 8 ) {
+        $('#length').removeClass('valid').addClass('invalid');
+    } else {
+        $('#length').removeClass('invalid').addClass('valid');
+    }
+
+    //Validate letter 
+    if ( pswd.match(/[A-z]/) ) {
+        $('#letter').removeClass('invalid').addClass('valid');
+    } else {
+        $('#letter').removeClass('valid').addClass('invalid');
+    }
+
+    //validate capital letter
+    if ( pswd.match(/[A-Z]/) ) {
+        $('#capital').removeClass('invalid').addClass('valid');
+    } else {
+        $('#capital').removeClass('valid').addClass('invalid');
+    }
+
+    //validate number
+    if ( pswd.match(/\d/) ) {
+        $('#number').removeClass('invalid').addClass('valid');
+    } else {
+        $('#number').removeClass('valid').addClass('invalid');
+    }
+}).focus(function() {
+    $('#pswd_info').show();
+}).blur(function() {
+    $('#pswd_info').hide();
+});
 
 $('#deleteAccountBtn').click(function(e){
     var valid = $('#deleteAccountCheck').prop("checked")
